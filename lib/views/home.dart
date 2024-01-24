@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertutorial2/logic/cubit/is_dark_theme.dart';
 import 'package:fluttertutorial2/views/pairwords.dart';
 import 'package:fluttertutorial2/views/stateful_animations.dart';
 
@@ -59,7 +61,6 @@ class Home extends StatelessWidget {
               builder: (context) => const PairWords(),
             )),
           ),
-          // TODO: generate listTiles from widgets names
         ],
       ),
     );
@@ -71,7 +72,16 @@ class LightButtonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocBuilder<IsDarkThemeCubit, bool>(
+      builder: (context, state) {
+        return IconButton(
+          onPressed: () {
+            context.read<IsDarkThemeCubit>().swap();
+          },
+          icon: const Icon(Icons.motion_photos_paused_sharp),
+        );
+      },
+    );
   }
 }
 
@@ -80,6 +90,15 @@ class DarkButtonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocBuilder<IsDarkThemeCubit, bool>(
+      builder: (context, state) {
+        return IconButton(
+          onPressed: () {
+            context.read<IsDarkThemeCubit>().swap();
+          },
+          icon: const Icon(Icons.sunny),
+        );
+      },
+    );
   }
 }
