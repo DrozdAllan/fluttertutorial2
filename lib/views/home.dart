@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertutorial2/logic/cubit/is_dark_theme.dart';
+import 'package:fluttertutorial2/views/anim_1.dart';
+import 'package:fluttertutorial2/views/blocs.dart';
+import 'package:fluttertutorial2/views/camera.dart';
+import 'package:fluttertutorial2/views/flutterfire.dart';
+import 'package:fluttertutorial2/views/form_builder.dart';
+import 'package:fluttertutorial2/views/geolocator.dart';
+import 'package:fluttertutorial2/views/http_tuto.dart';
 import 'package:fluttertutorial2/views/pairwords.dart';
+import 'package:fluttertutorial2/views/persistent_storage.dart';
 import 'package:fluttertutorial2/views/stateful_animations.dart';
 
 class Home extends StatelessWidget {
@@ -50,7 +58,7 @@ class Home extends StatelessWidget {
         crossAxisSpacing: 30.0,
         children: [
           ListTile(
-            title: const Text('StatefulAnimations'),
+            title: const Text('Stateful Animations'),
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const StatefulAnimations(),
             )),
@@ -61,6 +69,55 @@ class Home extends StatelessWidget {
               builder: (context) => const PairWords(),
             )),
           ),
+          ListTile(
+            title: const Text('Http Tuto'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const HttpTuto(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Persistent Storage'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const PersistentStorage(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Form Builder'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const FormBuilder(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Blocs'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Blocs(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Flutterfire'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const FlutterFire(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Geolocator'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Geolocator(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Camera'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Camera(),
+            )),
+          ),
+          ListTile(
+            title: const Text('Anim 1'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Anim1(),
+            )),
+          ),
+          ListTile(title: const Text('GMaps ?'), onTap: () {}),
         ],
       ),
     );
