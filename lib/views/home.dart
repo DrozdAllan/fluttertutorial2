@@ -11,12 +11,15 @@ import 'package:fluttertutorial2/views/http_tuto.dart';
 import 'package:fluttertutorial2/views/pairwords.dart';
 import 'package:fluttertutorial2/views/persistent_storage.dart';
 import 'package:fluttertutorial2/views/stateful_animations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Uri url = Uri.parse('https://allandrozd.com');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Welcome to Flutter Tutorials 2'),
@@ -31,21 +34,28 @@ class Home extends StatelessWidget {
               sizeCurve: Curves.bounceOut),
           IconButton(
               onPressed: () {
-                showAboutDialog(context: context, children: [
-                  GestureDetector(
-                    child: const Text(
-                      'Visit Allan Drozd Website',
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue),
-                    ),
-                    onTap: () async {
-                      // TODO: check url_launcher package
-                      // https://pub.dev/packages/url_launcher
-                      // await launch(Home._url)
-                    },
-                  )
-                ]);
+                showAboutDialog(
+                    context: context,
+                    applicationName: 'Flutter Tutorials 2',
+                    applicationLegalese:
+                        'This app is developed by Allan Drozd on Flutter 3.16.8',
+                    children: [
+                      GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 25.0),
+                          child: Text(
+                            'Visit Allan Drozd Website',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                        ),
+                        onTap: () async {
+                          if (!await launchUrl(url)) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                      )
+                    ]);
               },
               icon: const Icon(Icons.help))
         ],
