@@ -8,7 +8,6 @@ import 'package:fluttertutorial2/views/flutterfire.dart';
 import 'package:fluttertutorial2/views/form_builder.dart';
 import 'package:fluttertutorial2/views/geolocator.dart';
 import 'package:fluttertutorial2/views/http_tuto.dart';
-import 'package:fluttertutorial2/views/pairwords.dart';
 import 'package:fluttertutorial2/views/persistent_storage.dart';
 import 'package:fluttertutorial2/views/stateful_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -74,21 +73,15 @@ class Home extends StatelessWidget {
             )),
           ),
           ListTile(
-            title: const Text('PairWords'),
+            title: const Text('Persistent Storage'),
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const PairWords(),
+              builder: (context) => const PersistentStorage(),
             )),
           ),
           ListTile(
             title: const Text('Http Tuto'),
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const HttpTuto(),
-            )),
-          ),
-          ListTile(
-            title: const Text('Persistent Storage'),
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const PersistentStorage(),
             )),
           ),
           ListTile(
