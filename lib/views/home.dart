@@ -8,7 +8,7 @@ import 'package:fluttertutorial2/views/flutterfire.dart';
 import 'package:fluttertutorial2/views/form_builder.dart';
 import 'package:fluttertutorial2/views/geolocator.dart';
 import 'package:fluttertutorial2/views/http_tuto.dart';
-import 'package:fluttertutorial2/views/persistent_storage.dart';
+import 'package:fluttertutorial2/views/persistent_storage/persistent_storage.dart';
 import 'package:fluttertutorial2/views/stateful_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertutorial2/views/persistent_storage/shared_preference.dart';
 
 class PersistentStorage extends StatelessWidget {
   const PersistentStorage({super.key});
@@ -10,14 +11,14 @@ class PersistentStorage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Persistent Storage'),
-          bottom: TabBar(tabs: [
+          bottom: const TabBar(tabs: [
             Tab(text: 'Shared Preferences'),
             Tab(text: 'Hive'),
             Tab(text: 'SQFlite'),
           ]),
         ),
-        body: TabBarView(children: [
-          Text('zinzin'),
+        body: const TabBarView(children: [
+          SharedPreference(),
           Text('zinzin'),
           Text('zinzin'),
         ]),
