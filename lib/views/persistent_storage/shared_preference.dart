@@ -9,18 +9,21 @@ class SharedPreference extends StatefulWidget {
 }
 
 class _SharedPreferenceState extends State<SharedPreference> {
-  late int? counter = 0;
-  late final SharedPreferences prefs;
+  final Future<SharedPreferences> instance = SharedPreferences.getInstance();
+  late Future<int> counter;
 
   @override
   void initState() {
     super.initState();
-    getPrefs();
+    counter = instance.then((prefs) => prefs.getInt('counter') ?? 0);
   }
 
-  getPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    counter = prefs.getInt('counter');
+  Future<void> incrementCounter() async {
+    final prefs = await instance;
+    final int counter = (prefs.getInt('counter') ?? 0) + 1;
+    setState(() {
+      this.counter = prefs.setInt("counter", counter).then((_) => counter);
+    });
   }
 
   @override
@@ -29,21 +32,27 @@ class _SharedPreferenceState extends State<SharedPreference> {
       child: Column(
         children: [
           const Text(
-              "Use Shared_Preference when you want to store simple data : bool, double, int, keys, string and stringList. There is no guarantee that writes will be persisted so this plugin must not be used for storing critical data"),
-          Text("your counter is : $counter")
+              "Use shared_preferences when you want to store simple data : bool, double, int, keys, string and stringList. There is no guarantee that writes will be persisted so this plugin must not be used for storing critical data", style: TextStyle(fontSize: 18.0),),
+          FutureBuilder(
+            future: counter,
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                  return const CircularProgressIndicator();
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  return snapshot.hasError
+                      ? Text("Error: ${snapshot.error}")
+                      : Text("Your counter is ${snapshot.data}");
+              }
+            },
+          ),
+          TextButton(
+              onPressed: () => incrementCounter(),
+              child: const Text('add 1 to counter'))
         ],
       ),
     );
   }
 }
-
-// Future<void> _incrementCounter() async {
-//   final SharedPreferences prefs = await _prefs;
-//   final int counter = (prefs.getInt('counter') ?? 0) + 1;
-
-//   setState(() {
-//     _counter = prefs.setInt("counter", counter).then((bool success) {
-//       return counter;
-//     });
-//   });
-// }
