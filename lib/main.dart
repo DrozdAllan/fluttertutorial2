@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertutorial2/data/models/person/person_box.dart';
 import 'package:fluttertutorial2/logic/cubit/is_dark_theme.dart';
 import 'package:fluttertutorial2/style.dart';
 
 import 'views/home.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // TODO: firebase, firebase messaging & firebase crashlytics initialize
-  // TODO: hive box initialize
   // TODO: camera initialize
+  await PersonBox.init();
   runApp(BlocProvider(
     create: (context) => IsDarkThemeCubit(),
     child: const MyApp(),
