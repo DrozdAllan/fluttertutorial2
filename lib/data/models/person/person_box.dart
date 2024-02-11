@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'person.dart';
 
 class PersonBox {
-  static Box? box;
+  static Box<Person>? box;
 
   static final List<Person> persons = [
     Person('Allan', 29, [Person('Benjamin', 29, [])]),

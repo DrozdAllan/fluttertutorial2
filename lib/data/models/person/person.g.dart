@@ -19,7 +19,7 @@ class PersonAdapter extends TypeAdapter<Person> {
     return Person(
       fields[0] as String,
       fields[1] as int,
-      fields[2] == null ? [] : (fields[2] as List).cast<Person>(),
+      (fields[2] as List?)?.cast<Person>(),
     );
   }
 
