@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial2/views/persistent_storage/hive.dart';
 import 'package:fluttertutorial2/views/persistent_storage/shared_preference.dart';
+import 'package:fluttertutorial2/views/persistent_storage/sqflite.dart';
 
 class PersistentStorage extends StatelessWidget {
   const PersistentStorage({super.key});
@@ -21,7 +22,7 @@ class PersistentStorage extends StatelessWidget {
         body: const TabBarView(children: [
           SharedPreference(),
           HiveTuto(),
-          Text('zinzin'),
+          Sqflite(),
         ]),
       ),
     );

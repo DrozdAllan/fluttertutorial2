@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'person.dart';
+import '../models/person/person.dart';
 
 class PersonBox {
   static Box<Person>? box;

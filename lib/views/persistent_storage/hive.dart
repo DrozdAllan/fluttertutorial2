@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial2/data/models/person/person.dart';
-import 'package:fluttertutorial2/data/models/person/person_box.dart';
+import 'package:fluttertutorial2/data/dataproviders/person_box.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveTuto extends StatefulWidget {
