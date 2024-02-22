@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertutorial2/data/dataproviders/isar_box.dart';
 import 'package:fluttertutorial2/data/dataproviders/person_box.dart';
 import 'package:fluttertutorial2/data/dataproviders/sqflite_db.dart';
 import 'package:fluttertutorial2/logic/cubit/is_dark_theme.dart';
@@ -12,7 +13,8 @@ Future<void> main() async {
   // TODO: firebase, firebase messaging & firebase crashlytics initialize
   // TODO: camera initialize
   await SqfliteDb.init();
-  await PersonBox.init();
+  await IsarBox.init();
+//   await PersonBox.init();
   runApp(BlocProvider(
     create: (context) => IsDarkThemeCubit(),
     child: const MyApp(),

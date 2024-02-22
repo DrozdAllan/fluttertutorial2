@@ -13,7 +13,7 @@ class PersonBox {
   static Future<void> init() async {
     await Hive.initFlutter();
 
-    Hive.registerAdapter(PersonAdapter());
+    // Hive.registerAdapter(PersonAdapter());
 
     box = await Hive.openBox('PersonBox');
 
