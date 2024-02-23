@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertutorial2/data/dataproviders/isar_box.dart';
-import 'package:fluttertutorial2/data/dataproviders/person_box.dart';
 import 'package:fluttertutorial2/data/dataproviders/sqflite_db.dart';
 import 'package:fluttertutorial2/logic/cubit/is_dark_theme.dart';
 import 'package:fluttertutorial2/style.dart';
-
 import 'views/home.dart';
 
 Future<void> main() async {

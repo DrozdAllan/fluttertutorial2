@@ -1,9 +1,7 @@
-import 'dart:developer';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial2/data/dataproviders/sqflite_db.dart';
 import 'package:fluttertutorial2/data/models/dog.dart';
-import 'package:sqflite/sqflite.dart';
 
 class Sqflite extends StatefulWidget {
   const Sqflite({super.key});
@@ -13,7 +11,6 @@ class Sqflite extends StatefulWidget {
 }
 
 class _SqfliteState extends State<Sqflite> {
-  late String? databasePath;
   final GlobalKey<FormFieldState> _formFieldKey = GlobalKey<FormFieldState>();
   final _name = TextEditingController();
 
@@ -31,8 +28,8 @@ class _SqfliteState extends State<Sqflite> {
         SizedBox(
           height: 350.0,
           child: FutureBuilder<List<Dog>>(
-            future: SqfliteDb.instance.getDogs(),
-            builder: (context, snapshot) {
+            future: SqfliteDb.getDogs(),
+            builder: (_, snapshot) {
               if (!snapshot.hasData) {
                 return const Center(
                   child: Text('Loading...'),
@@ -71,15 +68,17 @@ class _SqfliteState extends State<Sqflite> {
           },
         ),
         OutlinedButton(
-            onPressed: () async {
-              await SqfliteDb.instance
-                  .addDog(Dog(id: 666, name: _name.text, age: 28));
-              setState(() {
-                _name.clear();
-              });
-            },
-            child: const Text("Add the dog"))
+            onPressed: () => addDog(), child: const Text("Add the dog"))
       ]),
     );
+  }
+
+  addDog() async {
+    var rng = Random();
+    await SqfliteDb.addDog(
+        Dog(id: rng.nextInt(100), name: _name.text, age: 28));
+    setState(() {
+      _name.clear();
+    });
   }
 }

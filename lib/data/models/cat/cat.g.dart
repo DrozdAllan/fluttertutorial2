@@ -48,12 +48,7 @@ int _catEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  {
-    final value = object.name;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.name.length * 3;
   return bytesCount;
 }
 
@@ -73,10 +68,11 @@ Cat _catDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Cat();
-  object.age = reader.readLongOrNull(offsets[0]);
+  final object = Cat(
+    age: reader.readLong(offsets[0]),
+    name: reader.readString(offsets[1]),
+  );
   object.id = id;
-  object.name = reader.readStringOrNull(offsets[1]);
   return object;
 }
 
@@ -88,9 +84,9 @@ P _catDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -184,23 +180,7 @@ extension CatQueryWhere on QueryBuilder<Cat, Cat, QWhereClause> {
 }
 
 extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
-  QueryBuilder<Cat, Cat, QAfterFilterCondition> ageIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'age',
-      ));
-    });
-  }
-
-  QueryBuilder<Cat, Cat, QAfterFilterCondition> ageIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'age',
-      ));
-    });
-  }
-
-  QueryBuilder<Cat, Cat, QAfterFilterCondition> ageEqualTo(int? value) {
+  QueryBuilder<Cat, Cat, QAfterFilterCondition> ageEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'age',
@@ -210,7 +190,7 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
   }
 
   QueryBuilder<Cat, Cat, QAfterFilterCondition> ageGreaterThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -223,7 +203,7 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
   }
 
   QueryBuilder<Cat, Cat, QAfterFilterCondition> ageLessThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -236,8 +216,8 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
   }
 
   QueryBuilder<Cat, Cat, QAfterFilterCondition> ageBetween(
-    int? lower,
-    int? upper, {
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -304,24 +284,8 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Cat, Cat, QAfterFilterCondition> nameIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'name',
-      ));
-    });
-  }
-
-  QueryBuilder<Cat, Cat, QAfterFilterCondition> nameIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'name',
-      ));
-    });
-  }
-
   QueryBuilder<Cat, Cat, QAfterFilterCondition> nameEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -334,7 +298,7 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
   }
 
   QueryBuilder<Cat, Cat, QAfterFilterCondition> nameGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -349,7 +313,7 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
   }
 
   QueryBuilder<Cat, Cat, QAfterFilterCondition> nameLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -364,8 +328,8 @@ extension CatQueryFilter on QueryBuilder<Cat, Cat, QFilterCondition> {
   }
 
   QueryBuilder<Cat, Cat, QAfterFilterCondition> nameBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -539,13 +503,13 @@ extension CatQueryProperty on QueryBuilder<Cat, Cat, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Cat, int?, QQueryOperations> ageProperty() {
+  QueryBuilder<Cat, int, QQueryOperations> ageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'age');
     });
   }
 
-  QueryBuilder<Cat, String?, QQueryOperations> nameProperty() {
+  QueryBuilder<Cat, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });

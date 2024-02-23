@@ -2,9 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial2/data/dataproviders/isar_box.dart';
-import 'package:fluttertutorial2/data/models/person/person.dart';
-import 'package:fluttertutorial2/data/dataproviders/person_box.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:fluttertutorial2/data/models/cat/cat.dart';
+import 'package:isar/isar.dart';
 
 class IsarTuto extends StatefulWidget {
   const IsarTuto({super.key});
@@ -14,7 +13,6 @@ class IsarTuto extends StatefulWidget {
 }
 
 class _IsarTutoState extends State<IsarTuto> {
-  Box<Person>? box = PersonBox.box;
   final GlobalKey<FormFieldState> _formFieldKey = GlobalKey<FormFieldState>();
   final _name = TextEditingController();
 
@@ -32,32 +30,34 @@ class _IsarTutoState extends State<IsarTuto> {
         SizedBox(
           height: 350.0,
           child: FutureBuilder(
-            future: IsarBox.instance.getCats(),
+            future: IsarBox.getCats(),
             builder: (_, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return const CircularProgressIndicator();
-                case ConnectionState.active:
-                case ConnectionState.done:
-                  return snapshot.hasError
-                      ? Text("Error: ${snapshot.error}")
-                      : ListView(
-                          children: snapshot.data!
-                              .map(
-                                (dog) => Center(
-                                  child: ListTile(
-                                    title: Text(dog.name),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        );
+              inspect(snapshot);
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: Text('Loading...'),
+                );
               }
+              return snapshot.data!.isEmpty
+                  ? const Center(
+                      child: Text('No cats'),
+                    )
+                  : ListView(
+                      children: snapshot.data!
+                          .map(
+                            (cat) => Center(
+                              child: ListTile(
+                                title: Text('suzie'),
+                                // title: Text(cat!.name),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    );
             },
           ),
         ),
-        const Text("Add a Person"),
+        const Text("Add a Cat"),
         TextFormField(
           key: _formFieldKey,
           controller: _name,
@@ -81,17 +81,11 @@ class _IsarTutoState extends State<IsarTuto> {
   }
 
   addToBox() {
-    print(_name.value.text);
-    Person newEntry = Person(_name.value.text, 18, null);
     // add new entry to box
-    box!.add(newEntry);
-    print(box!.get(3)!.age);
-    // update entry in the box
-    newEntry.age = 24;
-    newEntry.save();
-    print(box!.get(3)!.age);
-    // delete entry from the box
-    newEntry.delete();
-    print(box!.get(3));
+    IsarBox.addCat(Cat(name: _name.value.text, age: 28));
+  }
+
+  remove(int id) {
+    IsarBox.deleteCat(id);
   }
 }
