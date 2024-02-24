@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertutorial2/data/dataproviders/isar_box.dart';
 import 'package:fluttertutorial2/data/models/cat/cat.dart';
-import 'package:isar/isar.dart';
 
 class IsarTuto extends StatefulWidget {
   const IsarTuto({super.key});
@@ -31,8 +28,8 @@ class _IsarTutoState extends State<IsarTuto> {
           height: 350.0,
           child: FutureBuilder(
             future: IsarBox.getCats(),
+            // future: IsarBox.getCat(1),
             builder: (_, snapshot) {
-              inspect(snapshot);
               if (!snapshot.hasData) {
                 return const Center(
                   child: Text('Loading...'),
@@ -47,8 +44,8 @@ class _IsarTutoState extends State<IsarTuto> {
                           .map(
                             (cat) => Center(
                               child: ListTile(
-                                title: Text('suzie'),
-                                // title: Text(cat!.name),
+                                title: Text(cat!.name),
+                                onTap: () => remove(cat.id),
                               ),
                             ),
                           )
@@ -83,9 +80,13 @@ class _IsarTutoState extends State<IsarTuto> {
   addToBox() {
     // add new entry to box
     IsarBox.addCat(Cat(name: _name.value.text, age: 28));
+    setState(() {
+      _name.clear();
+    });
   }
 
   remove(int id) {
     IsarBox.deleteCat(id);
+    setState(() {/* the Future<List<Cat?>> has been updated */});
   }
 }
