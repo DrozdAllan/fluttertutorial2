@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
           ListTile(
             title: const Text('Form Builder'),
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const FormBuilder(),
+              builder: (context) => const FormBuilderTuto(),
             )),
           ),
           ListTile(
