@@ -12,9 +12,11 @@ Future<void> main() async {
   // TODO: camera initialize
   await SqfliteDb.init();
   await IsarBox.init();
+//   Packages conflict if you try to use Hive & Ivar latest versions at the same time
 //   await PersonBox.init();
   runApp(BlocProvider(
     create: (context) => IsDarkThemeCubit(),
+    // TODO: delete this cubit and put the weather bloc
     child: const MyApp(),
   ));
 }
@@ -22,7 +24,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<IsDarkThemeCubit, bool>(
@@ -31,8 +32,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: myTheme,
           darkTheme: myDarkTheme,
-          themeMode: state ? ThemeMode.dark : ThemeMode.light,
-          // TODO: make bloc listener to listen to themeMode changing by the system
+          themeMode: ThemeMode.system,
           home: const Home(),
         );
       },

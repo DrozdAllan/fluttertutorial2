@@ -18,9 +18,39 @@ class _FormBuilderTutoState extends State<FormBuilderTuto> {
       ),
       body: FormBuilder(
         key: _formKey,
-        child: FormBuilderTextField(
-          name: 'text',
-          onChanged: (value) => print(value),
+        // always : already displays errors (works only inside each Fields of the form, not in FormBuilder)
+        // disabled : only show errors when trying to validate the form (on submit)
+        // onUserInteraction : display all errors as soon as the user enter any field of the form
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          children: [
+            FormBuilderTextField(
+              name: 'text',
+              onChanged: (value) => print(value),
+            ),
+            FormBuilderChoiceChip(
+              name: 'choice_chip',
+              decoration: const InputDecoration(
+                labelText: 'ChoiceChip',
+              ),
+              options: const [
+                FormBuilderChipOption(value: 'Test 1', child: Text('Test 1')),
+                FormBuilderChipOption(value: 'Test 2', child: Text('Test 2')),
+              ],
+            ),
+            FormBuilderDateTimePicker(
+              name: 'date',
+              // onChanged: _onChanged,
+              inputType: InputType.both,
+              // or InputType.time or InputType.date
+              decoration: const InputDecoration(
+                labelText: 'DateTimePicker',
+              ),
+              initialTime: const TimeOfDay(hour: 8, minute: 0),
+              // initialValue: DateTime.now(),
+              enabled: false,
+            ),
+          ],
         ),
       ),
     );

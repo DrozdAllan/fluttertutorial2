@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertutorial2/logic/cubit/is_dark_theme.dart';
 import 'package:fluttertutorial2/views/anim_1.dart';
 import 'package:fluttertutorial2/views/blocs.dart';
 import 'package:fluttertutorial2/views/camera.dart';
@@ -23,14 +21,10 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Welcome to Flutter Tutorials 2'),
         actions: [
-          AnimatedCrossFade(
-              firstChild: const LightButtonIcon(),
-              secondChild: const DarkButtonIcon(),
-              crossFadeState: Theme.of(context).brightness == Brightness.dark
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              duration: const Duration(seconds: 1),
-              sizeCurve: Curves.bounceOut),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.ac_unit_rounded),
+          ),
           IconButton(
               onPressed: () {
                 showAboutDialog(
@@ -123,42 +117,6 @@ class Home extends StatelessWidget {
           ListTile(title: const Text('GMaps ?'), onTap: () {}),
         ],
       ),
-    );
-  }
-}
-
-class LightButtonIcon extends StatelessWidget {
-  const LightButtonIcon({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<IsDarkThemeCubit, bool>(
-      builder: (context, state) {
-        return IconButton(
-          onPressed: () {
-            context.read<IsDarkThemeCubit>().swap();
-          },
-          icon: const Icon(Icons.motion_photos_paused_sharp),
-        );
-      },
-    );
-  }
-}
-
-class DarkButtonIcon extends StatelessWidget {
-  const DarkButtonIcon({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<IsDarkThemeCubit, bool>(
-      builder: (context, state) {
-        return IconButton(
-          onPressed: () {
-            context.read<IsDarkThemeCubit>().swap();
-          },
-          icon: const Icon(Icons.sunny),
-        );
-      },
     );
   }
 }

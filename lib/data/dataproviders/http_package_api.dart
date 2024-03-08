@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:fluttertutorial2/data/models/http_package.dart';
@@ -11,7 +10,7 @@ class HttpPackageApi {
       var response = await http.get(uri);
       return HttpPackage.fromJson(response.body);
     } on SocketException catch (e) {
-      print(e);
+      inspect(e);
       throw ('Please check your connection.');
     } catch (e) {
       inspect('error : $e');

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fluttertutorial2/data/models/cat/cat.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,14 +22,6 @@ class IsarBox {
 
   // get all
   static Future<List<Cat?>> getCats() async {
-    // var proutinx = await _box!.cats.getAll([0, 3]).onError((e, s) {
-    //   inspect('error enculé : $e');
-    //   return [null];
-    // });
-    // inspect(proutinx);
-    // inspect(proutinx[0]);
-    // inspect(proutinx[1]);
-    // return [Cat(name: 'pute', age: 18), Cat(name: 'salope', age: 18)];
     return await _box!.cats.where().findAll();
   }
 
